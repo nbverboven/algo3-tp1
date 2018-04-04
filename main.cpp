@@ -2,7 +2,7 @@
 #include <chrono>
 #include <vector>
 #include <utility>
-#include <cmath>
+#include <algorithm>
 
 std::ostream& operator<<(std::ostream& os, const std::vector<std::pair<int, int>> &v)
 {
@@ -23,120 +23,186 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::pair<int, int>
 }
 
 
-void solucionFuerzaBrutaAux(const std::vector<std::pair<int, int>> &acciones, const int &capital_de_inversion, 
-	                        int &max_retorno, int &costo_parcial, int &retorno_parcial, unsigned int i)
+/**************************************************************
+ *                       Fuerza Bruta                         *
+ **************************************************************/
+
+void solucionFBAux(const std::vector<std::pair<int, int>> &acciones, 
+	               const int &capital_de_inversion, int &max_retorno, 
+	               int &costo_parcial, int &retorno_parcial, unsigned int i)
 {
-	if (i >= acciones.size())
-	{
-		if (costo_parcial <= capital_de_inversion && retorno_parcial > max_retorno)
-		{
-			max_retorno = retorno_parcial;
-		}
-		return;
-	}
-	else
-	{
-		costo_parcial += acciones[i].first;
-		retorno_parcial += acciones[i].second;
-
-		solucionFuerzaBrutaAux(acciones, capital_de_inversion, max_retorno, costo_parcial, retorno_parcial, i+1);
-
-		costo_parcial -= acciones[i].first;
-		retorno_parcial -= acciones[i].second;
-
-		solucionFuerzaBrutaAux(acciones, capital_de_inversion, max_retorno, costo_parcial, retorno_parcial, i+1);
-
-		return;
-	}
-}
-
-
-int solucionFuerzaBruta(const std::vector<std::pair<int, int>> &acciones, int capital_de_inversion)
-{
-	int resultado_final = 0;
-	int costo = 0;
-	int retorno = 0;
-
-	solucionFuerzaBrutaAux(acciones, capital_de_inversion, resultado_final, costo, retorno, 0);
-
-	return resultado_final;
-}
-
-
-
-bool puedoSeguirAgregando(const std::vector<std::pair<int, int>> &acciones, const int &capital_de_inversion, int &costo_parcial, 
-	                       unsigned int k)
-{
-	bool res = false;
-
-	for (unsigned int i = k; i < acciones.size(); ++i)
-	{
-		if (costo_parcial+acciones[i].first<=capital_de_inversion)
-		{
-			res = true;
-		}
-	}
-
-	return res;
-}
-
-void solucionBacktrackingAux(const std::vector<std::pair<int, int>> &acciones, const int &capital_de_inversion, 
-	                        int &max_retorno, int &costo_parcial, int &retorno_parcial, unsigned int i)
-{
-	if (!puedoSeguirAgregando(acciones, capital_de_inversion, costo_parcial, i))
+	if (i == acciones.size())
 	{
 		printf("(costo: %d, retorno: %d)\n", costo_parcial, retorno_parcial);
 		if (costo_parcial <= capital_de_inversion && retorno_parcial > max_retorno)
 		{
 			max_retorno = retorno_parcial;
 		}
-		return;
 	}
 	else
 	{
 		costo_parcial += acciones[i].first;
 		retorno_parcial += acciones[i].second;
 
-		solucionBacktrackingAux(acciones, capital_de_inversion, max_retorno, 
-			                    costo_parcial, retorno_parcial, i+1);
+		solucionFBAux(acciones, capital_de_inversion, max_retorno, 
+			                   costo_parcial, retorno_parcial, i+1);
 
 		costo_parcial -= acciones[i].first;
 		retorno_parcial -= acciones[i].second;
-		
-		solucionBacktrackingAux(acciones, capital_de_inversion, max_retorno, 
-			                    costo_parcial, retorno_parcial, i+1);
 
-		return;
+		solucionFBAux(acciones, capital_de_inversion, max_retorno, 
+			                   costo_parcial, retorno_parcial, i+1);
 	}
 }
 
-int solucionBacktracking(const std::vector<std::pair<int, int>> &acciones, const int &capital_de_inversion)
-{
-	int res = 0;
-	int asd1 = 0;
-	int asd2 = 0;
-	// bool asd3 = false;
-	solucionBacktrackingAux(acciones, capital_de_inversion, res, asd1, asd2, 0);//, asd3);
 
-	return res;
+int solucionFB(const std::vector<std::pair<int, int>> &acciones, 
+	           const int &capital_de_inversion)
+{
+	int resultado_final = 0;
+	int costo = 0;
+	int retorno = 0;
+
+	solucionFBAux(acciones, capital_de_inversion, resultado_final, costo, retorno, 0);
+
+	return resultado_final;
+}
+
+
+/**************************************************************
+ *                      Backtracking                          *
+ *               (podando por factibilidad)                   *
+ **************************************************************/
+
+
+void solucionBacktracking1Aux(const std::vector<std::pair<int, int>> &acciones, 
+	                         const int &capital_de_inversion, int &max_retorno, 
+	                         int &costo_parcial, int &retorno_parcial, unsigned int i)
+{
+	if (i == acciones.size())
+	{
+		// printf("(costo: %d, retorno: %d)\n", costo_parcial, retorno_parcial);
+		if (costo_parcial <= capital_de_inversion && retorno_parcial > max_retorno)
+		{
+			max_retorno = retorno_parcial;
+		}
+	}
+	else
+	{
+		costo_parcial += acciones[i].first;
+		retorno_parcial += acciones[i].second;
+
+		if (costo_parcial <= capital_de_inversion)
+		{
+			solucionBacktracking1Aux(acciones, capital_de_inversion, max_retorno, 
+				                    costo_parcial, retorno_parcial, i+1);
+		}
+
+		retorno_parcial -= acciones[i].second;
+		costo_parcial -= acciones[i].first;
+
+		solucionBacktracking1Aux(acciones, capital_de_inversion, max_retorno, 
+			                    costo_parcial, retorno_parcial, i+1);
+	}
+}
+
+
+int solucionBacktracking1(const std::vector<std::pair<int, int>> &acciones, 
+	            const int &capital_de_inversion)
+{
+	int resultado_final = 0;
+	int costo = 0;
+	int retorno = 0;
+
+	solucionBacktracking1Aux(acciones, capital_de_inversion, resultado_final, costo, retorno, 0);
+
+	return resultado_final;
+}
+
+
+/**************************************************************
+ *                      Backtracking                          *
+ *               (podando por optimalidad)                    *
+ **************************************************************/
+
+
+bool tieneSentidoAgregar(const std::vector<std::pair<int, int>> &acciones, 
+	                     const int &capital_de_inversion, int costo_parcial, int &max_retorno,
+	                     int retorno_parcial, unsigned int k)
+{
+	while (k < acciones.size() && costo_parcial+acciones[k].first <= capital_de_inversion)
+	{
+		// if (costo_parcial+acciones[k].first <= capital_de_inversion)
+		// {
+			costo_parcial += acciones[k].first;
+			retorno_parcial += acciones[k].second;
+		// }
+
+		++k;
+	}
+
+	return retorno_parcial > max_retorno;
+}
+
+
+void solucionBacktracking2Aux(const std::vector<std::pair<int, int>> &acciones, 
+	                const int &capital_de_inversion, int &max_retorno, 
+	                int &costo_parcial, int &retorno_parcial, unsigned int i)
+{
+	if (i == acciones.size())
+	{
+		// printf("(costo: %d, retorno: %d)\n", costo_parcial, retorno_parcial);
+		if (costo_parcial <= capital_de_inversion && retorno_parcial > max_retorno)
+		{
+			max_retorno = retorno_parcial;
+		}
+	}
+	else
+	{
+		costo_parcial += acciones[i].first;
+		retorno_parcial += acciones[i].second;
+
+		if (tieneSentidoAgregar(acciones, capital_de_inversion, costo_parcial, 
+			                    max_retorno, retorno_parcial, i+1))
+		{
+			solucionBacktracking2Aux(acciones, capital_de_inversion, max_retorno, 
+				                    costo_parcial, retorno_parcial, i+1);
+		}
+
+		retorno_parcial -= acciones[i].second;
+		costo_parcial -= acciones[i].first;
+
+		if (tieneSentidoAgregar(acciones, capital_de_inversion, costo_parcial,
+			                    max_retorno,retorno_parcial, i+1))
+		{
+			solucionBacktracking2Aux(acciones, capital_de_inversion, max_retorno, 
+				                    costo_parcial, retorno_parcial, i+1);
+		}
+	}
+}
+
+
+int solucionBacktracking2(const std::vector<std::pair<int, int>> &acciones, 
+	            const int &capital_de_inversion)
+{
+	int resultado_final = 0;
+	int costo = 0;
+	int retorno = 0;
+
+	solucionBacktracking2Aux(acciones, capital_de_inversion, resultado_final, costo, retorno, 0);
+
+	return resultado_final;
+}
+
+
+bool myfunction (std::pair<int, int> i, std::pair<int, int> j) 
+{
+	return (i.second/i.first) > (j.second/j.first);
 }
 
 
 
 int main()//int argc, char const *argv[])
 {
-	std::pair <int, int> x1 (1, 5);
-	std::pair <int, int> x2 (2, 8);
-	std::pair <int, int> x3 (25, 4);
-	std::pair <int, int> x4 (16, 10);
-	std::pair <int, int> x5 (2, 6);
-	std::pair <int, int> x6 (1, 6);
-	std::vector<std::pair<int, int>> acciones = {x1, x2, x3, x4, x5};
-	std::vector<std::pair<int, int>> acciones3 = {x1, x2, x4};
-	// std::cout << acciones << "\n";
-
-	// printf("%d\n", solucionFuerzaBruta(acciones, 25));
-	// printf("%d\n", solucionBacktracking(acciones3, 5));
-	printf("%d\n", solucionBacktracking(acciones, 25));
 	return 0;
 }
