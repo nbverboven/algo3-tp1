@@ -1,2 +1,4 @@
 *.o
+gtest_main.a
 main
+tests
