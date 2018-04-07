@@ -40,7 +40,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 # House-keeping build targets.
 
-all : $(TESTS)
+all : $(TESTS) tiempos
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
@@ -78,3 +78,9 @@ tests.o : $(USER_DIR)/tests.cpp $(GTEST_HEADERS)
 
 tests : tests.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -O3 -lpthread $^ -o $@
+
+tiempos.o : $(USER_DIR)/tiempos.cpp
+	$(CXX) $(CXXFLAGS) -O3 -c $^
+
+tiempos : tiempos.o gtest_main.a
+	$(CXX) $(CXXFLAGS) -O3  $^ -o $@

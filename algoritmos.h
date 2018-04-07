@@ -129,73 +129,73 @@ int solucionBacktracking1(const std::vector<std::pair<int, int>> &acciones,
  **************************************************************/
 
 
-bool tieneSentidoAgregar(const std::vector<std::pair<int, int>> &acciones, 
-	                     const int &capital_de_inversion, int costo_parcial, int &max_retorno,
-	                     int retorno_parcial, unsigned int k)
-{
-	while (k < acciones.size() && costo_parcial+acciones[k].first <= capital_de_inversion)
-	{
-		// if (costo_parcial+acciones[k].first <= capital_de_inversion)
-		// {
-			costo_parcial += acciones[k].first;
-			retorno_parcial += acciones[k].second;
-		// }
+// bool tieneSentidoAgregar(const std::vector<std::pair<int, int>> &acciones, 
+// 	                     const int &capital_de_inversion, int costo_parcial, int &max_retorno,
+// 	                     int retorno_parcial, unsigned int k)
+// {
+// 	while (k < acciones.size() && costo_parcial+acciones[k].first <= capital_de_inversion)
+// 	{
+// 		// if (costo_parcial+acciones[k].first <= capital_de_inversion)
+// 		// {
+// 			costo_parcial += acciones[k].first;
+// 			retorno_parcial += acciones[k].second;
+// 		// }
 
-		++k;
-	}
+// 		++k;
+// 	}
 
-	return retorno_parcial > max_retorno;
-}
-
-
-void solucionBacktracking2Aux(const std::vector<std::pair<int, int>> &acciones, 
-	                          const int &capital_de_inversion, int &max_retorno, 
-	                          int &costo_parcial, int &retorno_parcial, unsigned int i)
-{
-	if (i == acciones.size())
-	{
-		// printf("(costo: %d, retorno: %d)\n", costo_parcial, retorno_parcial);
-		if (costo_parcial <= capital_de_inversion && retorno_parcial > max_retorno)
-		{
-			max_retorno = retorno_parcial;
-		}
-	}
-	else
-	{
-		costo_parcial += acciones[i].first;
-		retorno_parcial += acciones[i].second;
-
-		if (tieneSentidoAgregar(acciones, capital_de_inversion, costo_parcial, 
-			                    max_retorno, retorno_parcial, i+1))
-		{
-			solucionBacktracking2Aux(acciones, capital_de_inversion, max_retorno, 
-				                    costo_parcial, retorno_parcial, i+1);
-		}
-
-		retorno_parcial -= acciones[i].second;
-		costo_parcial -= acciones[i].first;
-
-		if (tieneSentidoAgregar(acciones, capital_de_inversion, costo_parcial,
-			                    max_retorno,retorno_parcial, i+1))
-		{
-			solucionBacktracking2Aux(acciones, capital_de_inversion, max_retorno, 
-				                    costo_parcial, retorno_parcial, i+1);
-		}
-	}
-}
+// 	return retorno_parcial > max_retorno;
+// }
 
 
-int solucionBacktracking2(const std::vector<std::pair<int, int>> &acciones, 
-	                      const int &capital_de_inversion)
-{
-	int resultado_final = 0;
-	int costo = 0;
-	int retorno = 0;
+// void solucionBacktracking2Aux(const std::vector<std::pair<int, int>> &acciones, 
+// 	                          const int &capital_de_inversion, int &max_retorno, 
+// 	                          int &costo_parcial, int &retorno_parcial, unsigned int i)
+// {
+// 	if (i == acciones.size())
+// 	{
+// 		// printf("(costo: %d, retorno: %d)\n", costo_parcial, retorno_parcial);
+// 		if (costo_parcial <= capital_de_inversion && retorno_parcial > max_retorno)
+// 		{
+// 			max_retorno = retorno_parcial;
+// 		}
+// 	}
+// 	else
+// 	{
+// 		costo_parcial += acciones[i].first;
+// 		retorno_parcial += acciones[i].second;
 
-	solucionBacktracking2Aux(acciones, capital_de_inversion, resultado_final, costo, retorno, 0);
+// 		if (tieneSentidoAgregar(acciones, capital_de_inversion, costo_parcial, 
+// 			                    max_retorno, retorno_parcial, i+1))
+// 		{
+// 			solucionBacktracking2Aux(acciones, capital_de_inversion, max_retorno, 
+// 				                    costo_parcial, retorno_parcial, i+1);
+// 		}
 
-	return resultado_final;
-}
+// 		retorno_parcial -= acciones[i].second;
+// 		costo_parcial -= acciones[i].first;
+
+// 		if (tieneSentidoAgregar(acciones, capital_de_inversion, costo_parcial,
+// 			                    max_retorno,retorno_parcial, i+1))
+// 		{
+// 			solucionBacktracking2Aux(acciones, capital_de_inversion, max_retorno, 
+// 				                    costo_parcial, retorno_parcial, i+1);
+// 		}
+// 	}
+// }
+
+
+// int solucionBacktracking2(const std::vector<std::pair<int, int>> &acciones, 
+// 	                      const int &capital_de_inversion)
+// {
+// 	int resultado_final = 0;
+// 	int costo = 0;
+// 	int retorno = 0;
+
+// 	solucionBacktracking2Aux(acciones, capital_de_inversion, resultado_final, costo, retorno, 0);
+
+// 	return resultado_final;
+// }
 
 
 /**************************************************************
