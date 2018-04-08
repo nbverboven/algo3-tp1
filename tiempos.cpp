@@ -78,7 +78,6 @@ int main()//int argc, char const *argv[])
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales.push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
-			// cout << chrono::duration <double, milli> (diffFuerzaBruta).count() << endl;
 		}
 
 		// Calculo el promedio de tiempos y me lo guardo
