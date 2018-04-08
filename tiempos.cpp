@@ -2,17 +2,9 @@
 #include <fstream>
 #include <chrono>
 #include <random>
-// #include <vector>
-// #include <utility>
-// #include <algorithm>
 #include "algoritmos.h"
 
 using namespace std;
-
-bool myfunction (std::pair<int, int> i, std::pair<int, int> j) 
-{
-	return (i.second/i.first) > (j.second/j.first);
-}
 
 int sumaDeCostos(const vector<pair<int,int>> &v)
 {
@@ -25,56 +17,47 @@ int sumaDeCostos(const vector<pair<int,int>> &v)
 	return max_w;
 }
 
-int main()//int argc, char const *argv[])
+
+/* EXPERIMENTO FUERZA BRUTA 1
+   * # muestras: 30
+   * Tamaño del vector: a determinar
+   * Costos al azar entre 1 y 100
+   * Retornos al azar entre 1 y 100
+   * Capacidad máxima: 2*(suma de todos los costos)
+*/
+void experimentoFuerzaBruta1(int &max_size, int &granularity)
 {
-	// cout << "steady_clock" << endl;
- //    cout << chrono::steady_clock::period::num << endl;
- //    cout << chrono::steady_clock::period::den << endl;
- //    cout << "steady = " << boolalpha << chrono::steady_clock::is_steady << endl << endl;
-
-	// cout << endl << endl;
-	// auto startBacktracking = chrono::steady_clock::now();
-	// solucionBacktracking1(v, 25);
-	// auto endBacktracking = chrono::steady_clock::now();
-	// auto diffBacktracking = endBacktracking - startBacktracking;
-	// cout << "Tiempo utilizado por Backtracking " << chrono::duration <double, milli> (diffBacktracking).count() << " ms" << endl;
-
-
+	// Acá voy a guardar el tiempo promedio que tarda el algoritmo
+	// para cada tamaño de vector
+	vector<double> resultados;
 
 	std::random_device rd; // obtain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 100); // define the range
 
-	
-	// Testeo primero con un vector de 10 elementos para 
-	// ver cuántas muestras son necesarias
 
-	// En este caso, el vector resultados va a terminar teniendo
-	// 300 elementos
-	vector<double> resultados;
-
-	for (int i = 0; i < 40; ++i)
+	for (int i = 1; i < max_size+1; i+=granularity)
 	{
+
 		vector<double> resultados_parciales;
 
-		// Esto lo voy a hacer para muestras de tamaño 1, 2, etc. hasta 
-		// llegar a 300
-		for (int j = 0; j <= i; ++j)
+		// Para cada longitud del vector, tomo 30 muestras
+		for (int j = 0; j < 30; ++j)
 		{
-			// Genero el vector de tamaño 10 de pares al azar
+			// Genero el vector de tamaño i de pares al azar
 			vector<pair<int,int>> v;
-			for (int k = 0; k < 15; ++k)
+			for (int k = 0; k < i; ++k)
 			{
 				pair<int,int> x(distr(eng), distr(eng));
 				v.push_back(x);
 			}
 
-			int max_w = sumaDeCostos(v);
+			// Para calcular la capacidad máxima
+			int sum_w = sumaDeCostos(v);
 
 			// Corro el algoritmo de fuerza bruta y veo cuánto tarda
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			// solucionFuerzaBruta(v, 2*max_w);
-			solucionBacktracking1(v, 2*max_w);
+			solucionFuerzaBruta(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales.push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -89,10 +72,10 @@ int main()//int argc, char const *argv[])
 
 		resultados.push_back(asd/resultados_parciales.size());
 	}
-
-	// Guardo los resultados en un archivo de testo
+	
+	// Guardo los resultados en un archivo de tessto
 	ofstream outfile;
-	outfile.open("resultados_prueba.csv", ios::out);
+	outfile.open("exp_fb_1.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	outfile << "0" << "," << "0.0" << endl;
@@ -102,6 +85,20 @@ int main()//int argc, char const *argv[])
 	}
 
 	outfile.close();
+
+}
+
+
+int main()
+{
+	// cout << endl << endl;
+	// auto startBacktracking = chrono::steady_clock::now();
+	// solucionBacktracking1(v, 25);
+	// auto endBacktracking = chrono::steady_clock::now();
+	// auto diffBacktracking = endBacktracking - startBacktracking;
+	// cout << "Tiempo utilizado por Backtracking " << chrono::duration <double, milli> (diffBacktracking).count() << " ms" << endl;
+
+	experimentoFuerzaBruta1(30, 3);
 
 	return 0;
 }
