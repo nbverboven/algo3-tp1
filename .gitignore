@@ -1,5 +1,8 @@
 *.o
+*.txt
+*.csv
 gtest_main.a
 main
 tests
 tiempos
+

@@ -51,11 +51,11 @@ int main()//int argc, char const *argv[])
 
 	// En este caso, el vector resultados va a terminar teniendo
 	// 300 elementos
-	vector<chrono::duration <double, milli>> resultados;
+	vector<double> resultados;
 
-	for (int i = 0; i < 300; ++i)
+	for (int i = 0; i < 40; ++i)
 	{
-		vector<chrono::duration <double, milli>> resultados_parciales;
+		vector<double> resultados_parciales;
 
 		// Esto lo voy a hacer para muestras de tamaño 1, 2, etc. hasta 
 		// llegar a 300
@@ -63,7 +63,7 @@ int main()//int argc, char const *argv[])
 		{
 			// Genero el vector de tamaño 10 de pares al azar
 			vector<pair<int,int>> v;
-			for (int k = 0; k < 10; ++k)
+			for (int k = 0; k < 15; ++k)
 			{
 				pair<int,int> x(distr(eng), distr(eng));
 				v.push_back(x);
@@ -73,14 +73,16 @@ int main()//int argc, char const *argv[])
 
 			// Corro el algoritmo de fuerza bruta y veo cuánto tarda
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*max_w);
+			// solucionFuerzaBruta(v, 2*max_w);
+			solucionBacktracking1(v, 2*max_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
-			resultados_parciales.push_back((chrono::duration <double, milli>) (diffFuerzaBruta).count());
+			resultados_parciales.push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
+			// cout << chrono::duration <double, milli> (diffFuerzaBruta).count() << endl;
 		}
 
 		// Calculo el promedio de tiempos y me lo guardo
-		chrono::duration <double, milli> asd = resultados_parciales[0];
+		double asd = resultados_parciales[0];
 		for (unsigned int i = 1; i < resultados_parciales.size(); ++i)
 		{
 			asd += resultados_parciales[i];
@@ -91,12 +93,13 @@ int main()//int argc, char const *argv[])
 
 	// Guardo los resultados en un archivo de testo
 	ofstream outfile;
-	outfile.open("resultados_prueba.csv", ios::app);
+	outfile.open("resultados_prueba.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
+	outfile << "0" << "," << "0.0" << endl;
 	for (unsigned int i = 0; i < resultados.size(); ++i)
 	{
-		outfile << i+1 << "," << resultados[i].count() << endl;
+		outfile << i+1 << "," << resultados[i] << endl;
 	}
 
 	outfile.close();

@@ -25,7 +25,7 @@ USER_DIR = .
 CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 # Flags passed to the C++ compiler.
-CXXFLAGS += -g -Wall -Wextra -pedantic -std=c++11
+CXXFLAGS += -g -Wall -Wextra -pedantic -pthread -std=c++11
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
@@ -43,7 +43,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 all : $(TESTS) tiempos
 
 clean :
-	rm -f $(TESTS) gtest.a gtest_main.a *.o
+	rm -f $(TESTS) gtest.a gtest_main.a *.o *.csv
 
 # Builds gtest.a and gtest_main.a.
 
@@ -56,11 +56,11 @@ GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 # conservative and not optimized.  This is fine as Google Test
 # compiles fast and for ordinary users its source rarely changes.
 gtest-all.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -pthread -c \
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest-all.cc
 
 gtest_main.o : $(GTEST_SRCS_)
-	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -pthread -c \
+	$(CXX) $(CPPFLAGS) -I$(GTEST_DIR) $(CXXFLAGS) -c \
             $(GTEST_DIR)/src/gtest_main.cc
 
 gtest.a : gtest-all.o
@@ -80,7 +80,7 @@ tests : tests.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -O3 -lpthread $^ -o $@
 
 tiempos.o : $(USER_DIR)/tiempos.cpp
-	$(CXX) $(CXXFLAGS) -O3 -c $^
+	$(CXX) -g -Wall -Wextra -pedantic -std=c++11 -O3 -c $^
 
 tiempos : tiempos.o gtest_main.a
-	$(CXX) $(CXXFLAGS) -O3  $^ -o $@
+	$(CXX) -g -Wall -Wextra -pedantic -std=c++11 -O3  $^ -o $@
