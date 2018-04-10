@@ -76,11 +76,14 @@ gtest_main.a : gtest-all.o gtest_main.o
 tests.o : $(USER_DIR)/tests.cpp $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -O3 -c $(USER_DIR)/tests.cpp
 
-tests : tests.o gtest_main.a
+algoritmos.o: $(USER_DIR)/algoritmos.cpp
+	$(CXX) -g -Wall -Wextra -pedantic -std=c++11 -O3 -c $<
+
+tests : tests.o algoritmos.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -O3 -lpthread $^ -o $@
 
 tiempos.o : $(USER_DIR)/tiempos.cpp
 	$(CXX) -g -Wall -Wextra -pedantic -std=c++11 -O3 -c $^
 
-tiempos : tiempos.o gtest_main.a
+tiempos : tiempos.o algoritmos.o
 	$(CXX) -g -Wall -Wextra -pedantic -std=c++11 -O3  $^ -o $@
