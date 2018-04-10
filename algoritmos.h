@@ -7,6 +7,8 @@
 #include <utility>
 #include <algorithm>
 
+using namespace std;
+
 std::ostream& operator<<(std::ostream& os, const std::vector<std::pair<int, int>> &v)
 {
 	os << "[";
@@ -23,6 +25,31 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::pair<int, int>
 
 	os << "]";
 	return os;
+}
+
+
+void imprimirVector(const std::vector<std::vector<int>> &v)
+{
+	cout << "[" << endl;
+
+	for (unsigned int i = 0; i < v.size(); ++i)
+	{
+		cout << "[";
+
+		for (unsigned int j = 0; j < v[i].size(); ++j)
+		{
+			cout << v[i][j] ;
+
+			if (j < v[i].size()-1)
+			{
+				cout << ", ";
+			}
+		}
+
+		cout << "]" << endl;
+	}
+
+	cout << "]" << endl;
 }
 
 
@@ -204,29 +231,43 @@ int solucionBacktracking1(const std::vector<std::pair<int, int>> &acciones,
 int solucionProgDinamica(const std::vector<std::pair<int, int>> &acciones, 
 	                     const int &capital_de_inversion)
 {
-	int res = 0;
-	int costo = 0;
-	int retorno = 0;
-	std::vector<std::pair<int, int>> solucion_parcial;
-	std::vector<std::pair<int, int>> no_usados;
+	std::vector<std::vector<int>> soluciones(acciones.size()+1,std::vector<int>(capital_de_inversion+1));
 
-	for (int i = 0; i < capital_de_inversion; ++i)
+	for (int j = 0; j <= capital_de_inversion; ++j)
 	{
-		// Resuelvo el subproblema de tamaño i
-
-		int costo_parcial = 0;
-		int retorno_parcial = 0;
-
-		for (unsigned int j = 0; j < acciones.size(); ++j)
-		{
-			
-		}
-
-		costo += costo_parcial;
-		retorno += retorno_parcial;
+		soluciones[0][j] = 0;
 	}
 
-	return res;
+
+	// Resuelvo el subproblema de tamaño i
+	// para cada n
+	for (unsigned int i = 1; i <= acciones.size(); ++i)
+	{
+		for (int j = 0; j <= capital_de_inversion; ++j)
+		{
+			if (acciones[i-1].first > j)
+			{
+				soluciones[i][j] = soluciones[i-1][j];
+			}
+			else
+			{
+				std::pair<int,int> actual = acciones[i-1];
+				int costo_actual = actual.first;
+				int retorno_actual = actual.second;
+
+				int solucion_si_agrego_actual = soluciones[i-1][j-costo_actual] + retorno_actual;
+				int solucion_si_no_agrego_actual = soluciones[i-1][j];
+
+				int mejor_solucion = std::max(solucion_si_agrego_actual,
+					                          solucion_si_no_agrego_actual);
+
+				soluciones[i][j] = mejor_solucion;
+
+			}
+		}
+	}
+
+	return soluciones[acciones.size()][capital_de_inversion];
 }
 
 
