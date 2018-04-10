@@ -76,7 +76,7 @@ gtest_main.a : gtest-all.o gtest_main.o
 tests.o : $(USER_DIR)/tests.cpp $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -O3 -c $(USER_DIR)/tests.cpp
 
-algoritmos.o: $(USER_DIR)/algoritmos.cpp
+algoritmos.o : $(USER_DIR)/algoritmos.cpp
 	$(CXX) -g -Wall -Wextra -pedantic -std=c++11 -O3 -c $<
 
 tests : tests.o algoritmos.o gtest_main.a
