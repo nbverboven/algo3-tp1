@@ -4,8 +4,9 @@
 #include <random>
 #include "algoritmos.h"
 
-#define TAM_FUERZA_BRUTA 80
-#define TAM_BACKTRACKING 80
+#define TAM_FUERZA_BRUTA 1000
+// #define TAM_BACKTRACKING 10
+#define NUMERO_MUESTRAS 150
 
 using namespace std;
 
@@ -40,33 +41,36 @@ int sumaDeMediosCostos(const vector<pair<int,int>> &v)
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimento1(int max_size, int granularity)
+void experimento1(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
 	   para cada tamaño de vector.
 	   Indices:
-	   	- 0 y 3: fuerza bruta
-	   	- 1 y 4: backtracking
-	   	- 2 y 5: programación dinámica
+	   	- 0 y 4: fuerza bruta
+	   	- 1 y 5: backtracking
+	   	- 2 y 6: backtracking con pesos en orden decreciente
+	   	- 3 y 7: programación dinámica
 	   Capacidades máximas:
-	    - 0, 1 y 2: 2*(suma de todos los costos)
-	    - 3, 4,y 5: suma de la mitad de todos los costos
+	    - 0, 1, 2 y 3: 2*(suma de todos los costos)
+	    - 4, 5, 6 y 7: suma de la mitad de todos los costos
 	*/
 
-	vector<double> resultados[6];
+	vector<double> resultados[8];
 
+	// Código "tomado prestado" de StackOverflow
 	std::random_device rd; // obtain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 100); // define the range
 
-	for (int i = 1; i < max_size+1; i+=granularity)
+	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
+		printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
-		vector<double> resultados_parciales[6];
+		vector<double> resultados_parciales[8];
 
 		// Para cada longitud del vector, tomo 30 muestras
-		for (int j = 0; j < 30; ++j)
+		for (int j = 0; j < NUMERO_MUESTRAS; ++j)
 		{
 			/* Genero el vector de tamaño i de pares al azar.
 			   Todos los algoritmos los aplico siempre sobre el
@@ -91,38 +95,53 @@ void experimento1(int max_size, int granularity)
 				auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 				resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
 			}
-			else
-			{
-				resultados_parciales[0].push_back(0.0);
-			}
+			// else
+			// {
+			// 	resultados_parciales[0].push_back(0.0);
+			// }
 
 			// Después veo si tengo que cambiar este número
-			if (i <= TAM_BACKTRACKING)
-			{
-				auto startBacktracking = chrono::steady_clock::now();
-				solucionBacktracking(v, 2*sum_w);
-				auto endBacktracking = chrono::steady_clock::now();
-				auto diffBacktracking = endBacktracking - startBacktracking;
-				resultados_parciales[1].push_back(chrono::duration <double, milli> (diffBacktracking).count());
-			}
-			else
-			{
-				resultados_parciales[1].push_back(0.0);
-			}
+			// if (i <= TAM_BACKTRACKING)
+			// {
+			// 	auto startBacktracking = chrono::steady_clock::now();
+			// 	solucionBacktracking(v, 2*sum_w);
+			// 	auto endBacktracking = chrono::steady_clock::now();
+			// 	auto diffBacktracking = endBacktracking - startBacktracking;
+			// 	resultados_parciales[1].push_back(chrono::duration <double, milli> (diffBacktracking).count());
+			// }
+			// else
+			// {
+			// 	resultados_parciales[1].push_back(0.0);
+			// }
+
+			// if (i <= TAM_BACKTRACKING)
+			// {
+			// 	vector<pair<int,int>> v_back_copado(v);
+			// 	reverse(v_back_copado.begin(), v_back_copado.end());
+			// 	auto startBacktrackingCopado = chrono::steady_clock::now();
+			// 	solucionBacktracking(v_back_copado, 2*sum_w);
+			// 	auto endBacktrackingCopado = chrono::steady_clock::now();
+			// 	auto diffBacktrackingCopado = endBacktrackingCopado - startBacktrackingCopado;
+			// 	resultados_parciales[2].push_back(chrono::duration <double, milli> (diffBacktrackingCopado).count());
+			// }
+			// else
+			// {
+			// 	resultados_parciales[2].push_back(0.0);
+			// }
 
 
-			auto startProgDinamica = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
-			auto endProgDinamica = chrono::steady_clock::now();
-			auto diffProgDinamica = endProgDinamica - startProgDinamica;
-			resultados_parciales[2].push_back(chrono::duration <double, milli> (diffProgDinamica).count());
+			// auto startProgDinamica = chrono::steady_clock::now();
+			// solucionProgDinamica(v, 2*sum_w);
+			// auto endProgDinamica = chrono::steady_clock::now();
+			// auto diffProgDinamica = endProgDinamica - startProgDinamica;
+			// resultados_parciales[3].push_back(chrono::duration <double, milli> (diffProgDinamica).count());
 
 
 
 			// Realizo el experimento con el otro costo máximo
 			int sum_mitad_w = sumaDeMediosCostos(v);
 
-			if (i <= 20)
+			if (i <= TAM_FUERZA_BRUTA)
 			{
 				/* Corro el algoritmo de fuerza bruta solo para tamaños chicos.
 				   Si no, tarda demasiado */
@@ -130,38 +149,62 @@ void experimento1(int max_size, int granularity)
 				solucionFuerzaBruta(v, 2*sum_mitad_w);
 				auto endFuerzaBruta2 = chrono::steady_clock::now();
 				auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
-				resultados_parciales[3].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
+				resultados_parciales[4].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
 			}
-			else
-			{
-				resultados_parciales[3].push_back(0.0);
-			}
+			// else
+			// {
+			// 	resultados_parciales[4].push_back(0.0);
+			// }
 
 			// Después veo si tengo que cambiar este número
-			if (i <= 25)
-			{
-				auto startBacktracking2 = chrono::steady_clock::now();
-				solucionBacktracking(v, 2*sum_mitad_w);
-				auto endBacktracking2 = chrono::steady_clock::now();
-				auto diffBacktracking2 = endBacktracking2 - startBacktracking2;
-				resultados_parciales[4].push_back(chrono::duration <double, milli> (diffBacktracking2).count());
-			}
-			else
-			{
-				resultados_parciales[4].push_back(0.0);
-			}
+			// if (i <= TAM_BACKTRACKING)
+			// {
+			// 	auto startBacktracking2 = chrono::steady_clock::now();
+			// 	solucionBacktracking(v, 2*sum_mitad_w);
+			// 	auto endBacktracking2 = chrono::steady_clock::now();
+			// 	auto diffBacktracking2 = endBacktracking2 - startBacktracking2;
+			// 	resultados_parciales[5].push_back(chrono::duration <double, milli> (diffBacktracking2).count());
+			// }
+			// else
+			// {
+			// 	resultados_parciales[5].push_back(0.0);
+			// }
+
+			// if (i <= TAM_BACKTRACKING)
+			// {
+			// 	vector<pair<int,int>> v_back_copado(v);
+			// 	reverse(v_back_copado.begin(), v_back_copado.end());
+			// 	auto startBacktrackingCopado2 = chrono::steady_clock::now();
+			// 	solucionBacktracking(v_back_copado, 2*sum_mitad_w);
+			// 	auto endBacktrackingCopado2 = chrono::steady_clock::now();
+			// 	auto diffBacktrackingCopado2 = endBacktrackingCopado2 - startBacktrackingCopado2;
+			// 	resultados_parciales[6].push_back(chrono::duration <double, milli> (diffBacktrackingCopado2).count());
+			// }
+			// else
+			// {
+			// 	resultados_parciales[6].push_back(0.0);
+			// }
 
 
-			auto startProgDinamica2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
-			auto endProgDinamica2 = chrono::steady_clock::now();
-			auto diffProgDinamica2 = endProgDinamica2 - startProgDinamica2;
-			resultados_parciales[5].push_back(chrono::duration <double, milli> (diffProgDinamica2).count());
+		// 	auto startProgDinamica2 = chrono::steady_clock::now();
+		// 	solucionProgDinamica(v, 2*sum_mitad_w);
+		// 	auto endProgDinamica2 = chrono::steady_clock::now();
+		// 	auto diffProgDinamica2 = endProgDinamica2 - startProgDinamica2;
+		// 	resultados_parciales[7].push_back(chrono::duration <double, milli> (diffProgDinamica2).count());
 		}
 
 		// Calculo los promedios de tiempos y me los guardo
-		double proms[6];
-		for (int i = 0; i < 6; ++i)
+		if (resultados_parciales[0].size()== 0) resultados_parciales[0].push_back(0);
+		if (resultados_parciales[1].size()== 0) resultados_parciales[1].push_back(0);
+		if (resultados_parciales[2].size()== 0) resultados_parciales[2].push_back(0);
+		if (resultados_parciales[3].size()== 0) resultados_parciales[3].push_back(0);
+		if (resultados_parciales[4].size()== 0) resultados_parciales[4].push_back(0);
+		if (resultados_parciales[5].size()== 0) resultados_parciales[5].push_back(0);
+		if (resultados_parciales[6].size()== 0) resultados_parciales[6].push_back(0);
+		if (resultados_parciales[7].size()== 0) resultados_parciales[7].push_back(0);
+
+		double proms[8];
+		for (int i = 0; i < 8; ++i)
 		{
 			proms[i] = resultados_parciales[i][0];
 		}
@@ -170,24 +213,27 @@ void experimento1(int max_size, int granularity)
 		for (unsigned int i = 1; i < resultados_parciales[0].size(); ++i)
 		{
 			proms[0] += resultados_parciales[0][i];
-			proms[3] += resultados_parciales[3][i];
+			proms[4] += resultados_parciales[4][i];
 		}
 
 		//bcktrck
 		for (unsigned int i = 1; i < resultados_parciales[1].size(); ++i)
 		{
 			proms[1] += resultados_parciales[1][i];
-			proms[4] += resultados_parciales[4][i];
+			proms[5] += resultados_parciales[5][i];
+
+			proms[2] += resultados_parciales[2][i];
+			proms[6] += resultados_parciales[6][i];
 		}
 
 		//pd
 		for (unsigned int i = 1; i < resultados_parciales[2].size(); ++i)
 		{
-			proms[2] += resultados_parciales[2][i];
-			proms[5] += resultados_parciales[5][i];
+			proms[3] += resultados_parciales[3][i];
+			proms[7] += resultados_parciales[7][i];
 		}
 
-		for (int i = 0; i < 6; ++i)
+		for (int i = 0; i < 8; ++i)
 		{
 			resultados[i].push_back(proms[i]/resultados_parciales[i].size());
 		}
@@ -198,17 +244,19 @@ void experimento1(int max_size, int granularity)
 	outfile.open("exp_1.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
-	outfile << "0,0.0,0.0,0.0,0.0,0.0,0.0"  << endl;
-	int asd = 0;
-	for (unsigned int i = 0; i < resultados[2].size(); ++i)
+	int asd = min_size;
+	for (unsigned int i = 1; i < resultados[3].size(); ++i)
 	{
-		outfile << asd+granularity << ","
-			    << ((i <= TAM_FUERZA_BRUTA) ? resultados[0][i] : 0.0) << ","
-			    << ((i <= TAM_BACKTRACKING) ? resultados[1][i] : 0.0) << ","
-			    << resultados[2][i] << ","
-			    << ((i <= TAM_FUERZA_BRUTA) ? resultados[3][i] : 0.0) << ","
-			    << ((i <= TAM_BACKTRACKING) ? resultados[4][i] : 0.0) << ","
-			    << resultados[5][i] << endl;
+		outfile << asd << ","
+			    << ((i <= TAM_FUERZA_BRUTA) ? resultados[0][i] : 0) << ","
+			    // << ((i <= TAM_BACKTRACKING) ? resultados[1][i] : 0) << ","
+			    // << ((i <= TAM_BACKTRACKING) ? resultados[2][i] : 0) << ","
+			    // << resultados[3][i] << ","
+			    << ((i <= TAM_FUERZA_BRUTA) ? resultados[4][i] : 0) //<< ","
+			    // << ((i <= TAM_BACKTRACKING) ? resultados[5][i] : 0) << ","
+			    // << ((i <= TAM_BACKTRACKING) ? resultados[6][i] : 0) << ","
+			    // << resultados[7][i] << endl;
+			    << endl;
 		asd += granularity;
 	}
 
@@ -219,7 +267,9 @@ void experimento1(int max_size, int granularity)
 
 int main()
 {
-	experimento1(50, 1);
+	printf("%s\n", "Empiezo...");
+	experimento1(1, 20, 1);
+	printf("%s\n", "Terminé! :)");
 
 	return 0;
 }
