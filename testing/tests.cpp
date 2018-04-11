@@ -1,4 +1,4 @@
-#include "algoritmos.h"
+#include "../src/algoritmos.h"
 #include "gtest/gtest.h"
 
 using namespace std;
