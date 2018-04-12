@@ -5,5 +5,7 @@ gtest_main.a
 main
 tests
 tiempos
-experimentos/exp*
+exp1
+exp2
+exp3
 
