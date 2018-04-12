@@ -35,7 +35,7 @@ void experimentoBT1(int min_size, int max_size, int granularity)
 
 	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
-		printf("Tamaño: %d\n", i);
+		//printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
 		vector<double> resultados_parciales[2];
 
@@ -134,7 +134,7 @@ void experimentoBT2(int min_size, int max_size, int granularity)
 
 	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
-		printf("Tamaño: %d\n", i);
+		//printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
 		vector<double> resultados_parciales[2];
 
@@ -233,7 +233,7 @@ void experimentoBT3(int min_size, int max_size, int granularity)
 
 	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
-		printf("Tamaño: %d\n", i);
+		//printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
 		vector<double> resultados_parciales[2];
 
@@ -333,7 +333,7 @@ void experimentoBT4(int min_size, int max_size, int granularity)
 
 	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
-		printf("Tamaño: %d\n", i);
+		//printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
 		vector<double> resultados_parciales[2];
 
@@ -433,7 +433,7 @@ void experimentoBT5(int min_size, int max_size, int granularity)
 
 	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
-		printf("Tamaño: %d\n", i);
+		//printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
 		vector<double> resultados_parciales[2];
 
@@ -533,7 +533,7 @@ void experimentoBT6(int min_size, int max_size, int granularity)
 
 	for (int i = min_size; i < max_size+1; i+=granularity)
 	{
-		printf("Tamaño: %d\n", i);
+		//printf("Tamaño: %d\n", i);
 		// La convención de índices es la misma que para resultados
 		vector<double> resultados_parciales[2];
 
