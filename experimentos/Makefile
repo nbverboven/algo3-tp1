@@ -3,12 +3,12 @@
 CXX = g++
 CXXFLAGS = -g -Wall -Wextra -pedantic -O3 -std=c++11
 
-all: exp1 exp2 exp4 exp3
+all: exp1 exp2 exp3 exp4
 
 clean:
 	rm -f *.o
 	rm -f *.csv
-	rm -f exp1 exp2 exp3
+	rm -f exp1 exp2 exp3 exp4
 
 
 exp1: exp1.cpp algoritmos.o
