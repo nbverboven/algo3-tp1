@@ -608,27 +608,27 @@ void experimentoFB6(int min_size, int max_size, int granularity)
 int main()
 {
 	printf("%s\n", "Empiezando FB1...");
-	experimentoFB1(1, 35, 1);
+	experimentoFB1(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB2...");
-	experimentoFB2(1, 35, 1);
+	experimentoFB2(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB3...");
-	experimentoFB3(1, 35, 1);
+	experimentoFB3(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB4...");
-	experimentoFB4(1, 35, 1);
+	experimentoFB4(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB5...");
-	experimentoFB5(1, 35, 1);
+	experimentoFB5(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB6 ..");
-	experimentoFB6(1, 35, 1);
+	experimentoFB6(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;

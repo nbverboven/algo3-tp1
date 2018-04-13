@@ -608,27 +608,27 @@ void experimentoBT6(int min_size, int max_size, int granularity)
 int main()
 {
 	printf("%s\n", "Empiezando BT1...");
-	experimentoBT1(1, 35, 1);
+	experimentoBT1(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando BT2...");
-	experimentoBT2(1, 35, 1);
+	experimentoBT2(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando BT3...");
-	experimentoBT3(1, 35, 1);
+	experimentoBT3(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando BT4...");
-	experimentoBT4(1, 35, 1);
+	experimentoBT4(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando BT5...");
-	experimentoBT5(1, 35, 1);
+	experimentoBT5(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando BT6 ..");
-	experimentoBT6(1, 35, 1);
+	experimentoBT6(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;

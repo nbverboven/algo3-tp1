@@ -8,7 +8,7 @@
 using namespace std;
 
 /* 
-   EXPERIMENTO BT1
+   EXPERIMENTO BTO1
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Costos al azar entre 1 y 100
@@ -16,7 +16,7 @@ using namespace std;
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimentoPD1(int min_size, int max_size, int granularity)
+void experimentoBTO1(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
@@ -29,7 +29,7 @@ void experimentoPD1(int min_size, int max_size, int granularity)
 	vector<double> resultados[2];
 
 	// Código "tomado prestado" de StackOverflow
-	std::random_device rd; // obtain a random number from hardware
+	std::random_device rd; // oBTOain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 100); // define the range
 
@@ -52,11 +52,14 @@ void experimentoPD1(int min_size, int max_size, int granularity)
 				v.push_back(x);
 			}
 
+			// Ordeno crecientemente
+			sort(v.begin(), v.end());
+
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
 
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
+			solucionBacktracking(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -65,7 +68,7 @@ void experimentoPD1(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionBacktracking(v, 2*sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -90,7 +93,7 @@ void experimentoPD1(int min_size, int max_size, int granularity)
 
 	// Guardo los resultados en un archivo de texto
 	ofstream outfile;
-	outfile.open("exp_pd_1.csv", ios::out);
+	outfile.open("exp_BTO_1.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
@@ -107,7 +110,7 @@ void experimentoPD1(int min_size, int max_size, int granularity)
 
 
 /* 
-   EXPERIMENTO PD2
+   EXPERIMENTO BTO2
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Costos al azar entre 1 y 1000
@@ -115,7 +118,7 @@ void experimentoPD1(int min_size, int max_size, int granularity)
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimentoPD2(int min_size, int max_size, int granularity)
+void experimentoBTO2(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
@@ -128,7 +131,7 @@ void experimentoPD2(int min_size, int max_size, int granularity)
 	vector<double> resultados[2];
 
 	// Código "tomado prestado" de StackOverflow
-	std::random_device rd; // obtain a random number from hardware
+	std::random_device rd; // oBTOain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 1000); // define the range
 
@@ -151,11 +154,14 @@ void experimentoPD2(int min_size, int max_size, int granularity)
 				v.push_back(x);
 			}
 
+			// Ordeno crecientemente
+			sort(v.begin(), v.end());
+
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
 
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
+			solucionBacktracking(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -164,7 +170,7 @@ void experimentoPD2(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionBacktracking(v, 2*sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -189,7 +195,7 @@ void experimentoPD2(int min_size, int max_size, int granularity)
 
 	// Guardo los resultados en un archivo de texto
 	ofstream outfile;
-	outfile.open("exp_pd_2.csv", ios::out);
+	outfile.open("exp_BTO_2.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
@@ -206,7 +212,7 @@ void experimentoPD2(int min_size, int max_size, int granularity)
 
 
 /* 
-   EXPERIMENTO PD3
+   EXPERIMENTO BTO3
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Costos al azar entre 1 y 100
@@ -214,7 +220,7 @@ void experimentoPD2(int min_size, int max_size, int granularity)
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimentoPD3(int min_size, int max_size, int granularity)
+void experimentoBTO3(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
@@ -227,7 +233,7 @@ void experimentoPD3(int min_size, int max_size, int granularity)
 	vector<double> resultados[2];
 
 	// Código "tomado prestado" de StackOverflow
-	std::random_device rd; // obtain a random number from hardware
+	std::random_device rd; // oBTOain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 100); // define the range
 
@@ -251,11 +257,14 @@ void experimentoPD3(int min_size, int max_size, int granularity)
 				v.push_back(x);
 			}
 
+			// Ordeno crecientemente
+			sort(v.begin(), v.end());
+
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
 
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
+			solucionBacktracking(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -264,7 +273,7 @@ void experimentoPD3(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionBacktracking(v, 2*sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -289,7 +298,7 @@ void experimentoPD3(int min_size, int max_size, int granularity)
 
 	// Guardo los resultados en un archivo de texto
 	ofstream outfile;
-	outfile.open("exp_pd_3.csv", ios::out);
+	outfile.open("exp_BTO_3.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
@@ -306,7 +315,7 @@ void experimentoPD3(int min_size, int max_size, int granularity)
 
 
 /* 
-   EXPERIMENTO PD4
+   EXPERIMENTO FB4
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Costos al azar entre 1 y 1000
@@ -314,7 +323,7 @@ void experimentoPD3(int min_size, int max_size, int granularity)
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimentoPD4(int min_size, int max_size, int granularity)
+void experimentoBTO4(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
@@ -327,7 +336,7 @@ void experimentoPD4(int min_size, int max_size, int granularity)
 	vector<double> resultados[2];
 
 	// Código "tomado prestado" de StackOverflow
-	std::random_device rd; // obtain a random number from hardware
+	std::random_device rd; // oBTOain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 1000); // define the range
 
@@ -351,11 +360,14 @@ void experimentoPD4(int min_size, int max_size, int granularity)
 				v.push_back(x);
 			}
 
+			// Ordeno crecientemente
+			sort(v.begin(), v.end());
+
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
 
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
+			solucionBacktracking(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -364,7 +376,7 @@ void experimentoPD4(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionBacktracking(v, 2*sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -389,7 +401,7 @@ void experimentoPD4(int min_size, int max_size, int granularity)
 
 	// Guardo los resultados en un archivo de texto
 	ofstream outfile;
-	outfile.open("exp_pd_4.csv", ios::out);
+	outfile.open("exp_BTO_4.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
@@ -406,7 +418,7 @@ void experimentoPD4(int min_size, int max_size, int granularity)
 
 
 /* 
-   EXPERIMENTO PD5
+   EXPERIMENTO FB5
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Retornos al azar entre 1 y 100
@@ -414,7 +426,7 @@ void experimentoPD4(int min_size, int max_size, int granularity)
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimentoPD5(int min_size, int max_size, int granularity)
+void experimentoBTO5(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
@@ -427,7 +439,7 @@ void experimentoPD5(int min_size, int max_size, int granularity)
 	vector<double> resultados[2];
 
 	// Código "tomado prestado" de StackOverflow
-	std::random_device rd; // obtain a random number from hardware
+	std::random_device rd; // oBTOain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 1000); // define the range
 
@@ -451,11 +463,14 @@ void experimentoPD5(int min_size, int max_size, int granularity)
 				v.push_back(x);
 			}
 
+			// Ordeno crecientemente
+			sort(v.begin(), v.end());
+
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
 
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
+			solucionBacktracking(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -464,7 +479,7 @@ void experimentoPD5(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionBacktracking(v, 2*sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -489,7 +504,7 @@ void experimentoPD5(int min_size, int max_size, int granularity)
 
 	// Guardo los resultados en un archivo de texto
 	ofstream outfile;
-	outfile.open("exp_pd_5.csv", ios::out);
+	outfile.open("exp_BTO_5.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
@@ -506,7 +521,7 @@ void experimentoPD5(int min_size, int max_size, int granularity)
 
 
 /* 
-   EXPERIMENTO PD6
+   EXPERIMENTO FB6
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Retornos al azar entre 1 y 1000
@@ -514,7 +529,7 @@ void experimentoPD5(int min_size, int max_size, int granularity)
    * Capacidad máxima: 2*(suma de todos los costos) y
                        suma de la mitad de todos los costos
 */
-void experimentoPD6(int min_size, int max_size, int granularity)
+void experimentoBTO6(int min_size, int max_size, int granularity)
 {
 	/* 
 	   Acá voy a guardar el tiempo promedio que tarda el algoritmo
@@ -527,7 +542,7 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 	vector<double> resultados[2];
 
 	// Código "tomado prestado" de StackOverflow
-	std::random_device rd; // obtain a random number from hardware
+	std::random_device rd; // oBTOain a random number from hardware
 	std::mt19937 eng(rd()); // seed the generator
 	std::uniform_int_distribution<> distr(1, 1000); // define the range
 
@@ -551,11 +566,14 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 				v.push_back(x);
 			}
 
+			// Ordeno crecientemente
+			sort(v.begin(), v.end());
+
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
 
 			auto startFuerzaBruta = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_w);
+			solucionBacktracking(v, 2*sum_w);
 			auto endFuerzaBruta = chrono::steady_clock::now();
 			auto diffFuerzaBruta = endFuerzaBruta - startFuerzaBruta;
 			resultados_parciales[0].push_back(chrono::duration <double, milli> (diffFuerzaBruta).count());
@@ -564,7 +582,7 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionBacktracking(v, 2*sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -589,7 +607,7 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 
 	// Guardo los resultados en un archivo de texto
 	ofstream outfile;
-	outfile.open("exp_pd_6.csv", ios::out);
+	outfile.open("exp_BTO_6.csv", ios::out);
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
@@ -607,28 +625,28 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 
 int main()
 {
-	printf("%s\n", "Empiezando PD1...");
-	experimentoPD1(1, 30, 2);
+	printf("%s\n", "Empezando BTO1...");
+	experimentoBTO1(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
-	printf("%s\n", "Empiezando PD2...");
-	experimentoPD2(1, 30, 2);
+	printf("%s\n", "Empezando BTO2...");
+	experimentoBTO2(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
-	printf("%s\n", "Empiezando PD3...");
-	experimentoPD3(1, 30, 2);
+	printf("%s\n", "Empezando BTO3...");
+	experimentoBTO3(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
-	printf("%s\n", "Empiezando PD4...");
-	experimentoPD4(1, 30, 2);
+	printf("%s\n", "Empezando BTO4...");
+	experimentoBTO4(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
-	printf("%s\n", "Empiezando PD5...");
-	experimentoPD5(1, 30, 2);
+	printf("%s\n", "Empezando BTO5...");
+	experimentoBTO5(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
-	printf("%s\n", "Empiezando PD6 ..");
-	experimentoPD6(1, 30, 2);
+	printf("%s\n", "Empezando BTO6 ..");
+	experimentoBTO6(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;
