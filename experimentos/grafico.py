@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
 
-inputfile = sys.argv[1]
-
-datos = np.loadtxt(inputfile, delimiter=',')
+datosFB = [ np.loadtxt("exp_fb_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
+datosBT = [ np.loadtxt("exp_bt_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
+datosBTCrec = [ np.loadtxt("exp_BTO_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
+datosPD = [ np.loadtxt("exp_pd_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
 
 plt.plot(datos[:,0], datos[:,1], 'r', label='Fuerza bruta', linewidth=1)
 # plt.plot(datos[:,0], datos[:,2], 'g', label='Backtracking', linewidth=1)

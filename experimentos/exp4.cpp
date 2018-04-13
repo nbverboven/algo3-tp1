@@ -97,7 +97,7 @@ void experimentoBTO1(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -199,7 +199,7 @@ void experimentoBTO2(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -302,7 +302,7 @@ void experimentoBTO3(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -405,7 +405,7 @@ void experimentoBTO4(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -508,7 +508,7 @@ void experimentoBTO5(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -611,7 +611,7 @@ void experimentoBTO6(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","

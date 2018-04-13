@@ -94,7 +94,7 @@ void experimentoFB1(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -193,7 +193,7 @@ void experimentoFB2(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -293,7 +293,7 @@ void experimentoFB3(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -393,7 +393,7 @@ void experimentoFB4(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -493,7 +493,7 @@ void experimentoFB5(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
@@ -593,7 +593,7 @@ void experimentoFB6(int min_size, int max_size, int granularity)
 
 	// Escribo todos los resultados en el archivo
 	int asd = min_size;
-	for (unsigned int i = 1; i < resultados[0].size(); ++i)
+	for (unsigned int i = 0; i < resultados[0].size(); ++i)
 	{
 		outfile << asd << ","
 			    << resultados[0][i] << ","
