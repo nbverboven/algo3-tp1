@@ -2,6 +2,7 @@
 
 CXX = g++
 CXXFLAGS = -g -Wall -Wextra -pedantic -O3 -std=c++11
+SRC_DIR = ../src
 
 all: exp1 exp2 exp3 exp4
 
