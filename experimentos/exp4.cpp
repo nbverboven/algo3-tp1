@@ -53,7 +53,7 @@ void experimentoBTO1(int min_size, int max_size, int granularity)
 			}
 
 			// Ordeno crecientemente
-			sort(v.begin(), v.end());
+			reverse(v.begin(), v.end());
 
 			// Para calcular la capacidad máxima
 			int sum_w = sumaDeCostos(v);
@@ -68,7 +68,7 @@ void experimentoBTO1(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionBacktracking(v, 2*sum_mitad_w);
+			solucionBacktracking(v, sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());

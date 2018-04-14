@@ -24,5 +24,4 @@ int solucionBacktracking(const std::vector<std::pair<int, int>> &acciones,
 int solucionProgDinamica(const std::vector<std::pair<int, int>> &acciones, 
 	                     const int &capital_de_inversion);
 
-
 #endif // ALGORITMOS_H
