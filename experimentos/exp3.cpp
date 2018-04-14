@@ -608,27 +608,27 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 int main()
 {
 	printf("%s\n", "Empiezando PD1...");
-	experimentoPD1(1, 30, 2);
+	experimentoPD1(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD2...");
-	experimentoPD2(1, 30, 2);
+	experimentoPD2(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD3...");
-	experimentoPD3(1, 30, 2);
+	experimentoPD3(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD4...");
-	experimentoPD4(1, 30, 2);
+	experimentoPD4(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD5...");
-	experimentoPD5(1, 30, 2);
+	experimentoPD5(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD6 ..");
-	experimentoPD6(1, 30, 2);
+	experimentoPD6(1, 30, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;
