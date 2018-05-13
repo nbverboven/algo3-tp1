@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 datosFB = [ np.loadtxt("exp_fb_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
 datosBT = [ np.loadtxt("exp_bt_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
-datosBTCrec = [ np.loadtxt("exp_BTO_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
+# datosBTCrec = [ np.loadtxt("exp_BTO_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
 datosPD = [ np.loadtxt("exp_pd_"+str(i)+".csv", delimiter=',') for i in range(1,7) ]
 
 # plot a line, implicitly creating a subplot(111)

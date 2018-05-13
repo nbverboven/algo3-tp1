@@ -11,6 +11,8 @@ clean:
 	rm -f *.csv
 	rm -f exp1 exp2 exp3 exp4
 
+run:
+	./exp1 && ./exp2 && ./exp3
 
 exp1: exp1.cpp algoritmos.o
 	$(CXX) $(CXXFLAGS) $^ -o $@

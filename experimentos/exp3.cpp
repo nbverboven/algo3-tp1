@@ -8,7 +8,7 @@
 using namespace std;
 
 /* 
-   EXPERIMENTO BT1
+   EXPERIMENTO PD1
    * # muestras: 30
    * Tamaño del vector: a determinar
    * Costos al azar entre 1 y 100
@@ -65,7 +65,7 @@ void experimentoPD1(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionProgDinamica(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -164,7 +164,7 @@ void experimentoPD2(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionProgDinamica(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -264,7 +264,7 @@ void experimentoPD3(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionProgDinamica(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -364,7 +364,7 @@ void experimentoPD4(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionProgDinamica(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -464,7 +464,7 @@ void experimentoPD5(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionProgDinamica(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -564,7 +564,7 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionProgDinamica(v, 2*sum_mitad_w);
+			solucionProgDinamica(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -608,27 +608,27 @@ void experimentoPD6(int min_size, int max_size, int granularity)
 int main()
 {
 	printf("%s\n", "Empiezando PD1...");
-	experimentoPD1(1, 30, 1);
+	experimentoPD1(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD2...");
-	experimentoPD2(1, 30, 1);
+	experimentoPD2(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD3...");
-	experimentoPD3(1, 30, 1);
+	experimentoPD3(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD4...");
-	experimentoPD4(1, 30, 1);
+	experimentoPD4(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD5...");
-	experimentoPD5(1, 30, 1);
+	experimentoPD5(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando PD6 ..");
-	experimentoPD6(1, 30, 1);
+	experimentoPD6(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;

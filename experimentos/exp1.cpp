@@ -65,7 +65,7 @@ void experimentoFB1(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*sum_mitad_w);
+			solucionFuerzaBruta(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -164,7 +164,7 @@ void experimentoFB2(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*sum_mitad_w);
+			solucionFuerzaBruta(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -264,7 +264,7 @@ void experimentoFB3(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*sum_mitad_w);
+			solucionFuerzaBruta(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -364,7 +364,7 @@ void experimentoFB4(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*sum_mitad_w);
+			solucionFuerzaBruta(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -464,7 +464,7 @@ void experimentoFB5(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*sum_mitad_w);
+			solucionFuerzaBruta(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -564,7 +564,7 @@ void experimentoFB6(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionFuerzaBruta(v, 2*sum_mitad_w);
+			solucionFuerzaBruta(v, sum_w/5);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -608,27 +608,27 @@ void experimentoFB6(int min_size, int max_size, int granularity)
 int main()
 {
 	printf("%s\n", "Empiezando FB1...");
-	experimentoFB1(1, 30, 1);
+	experimentoFB1(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB2...");
-	experimentoFB2(1, 30, 1);
+	experimentoFB2(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB3...");
-	experimentoFB3(1, 30, 1);
+	experimentoFB3(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB4...");
-	experimentoFB4(1, 30, 1);
+	experimentoFB4(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB5...");
-	experimentoFB5(1, 30, 1);
+	experimentoFB5(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empiezando FB6 ..");
-	experimentoFB6(1, 30, 1);
+	experimentoFB6(1, 28, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;

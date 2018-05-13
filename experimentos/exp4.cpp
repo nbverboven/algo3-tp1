@@ -170,7 +170,7 @@ void experimentoBTO2(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionBacktracking(v, 2*sum_mitad_w);
+			solucionBacktracking(v, sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -273,7 +273,7 @@ void experimentoBTO3(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionBacktracking(v, 2*sum_mitad_w);
+			solucionBacktracking(v, sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -376,7 +376,7 @@ void experimentoBTO4(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionBacktracking(v, 2*sum_mitad_w);
+			solucionBacktracking(v, sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -479,7 +479,7 @@ void experimentoBTO5(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionBacktracking(v, 2*sum_mitad_w);
+			solucionBacktracking(v, sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -582,7 +582,7 @@ void experimentoBTO6(int min_size, int max_size, int granularity)
 			int sum_mitad_w = sumaDeMediosCostos(v);
 			
 			auto startFuerzaBruta2 = chrono::steady_clock::now();
-			solucionBacktracking(v, 2*sum_mitad_w);
+			solucionBacktracking(v, sum_mitad_w);
 			auto endFuerzaBruta2 = chrono::steady_clock::now();
 			auto diffFuerzaBruta2 = endFuerzaBruta2 - startFuerzaBruta2;
 			resultados_parciales[1].push_back(chrono::duration <double, milli> (diffFuerzaBruta2).count());
@@ -626,27 +626,27 @@ void experimentoBTO6(int min_size, int max_size, int granularity)
 int main()
 {
 	printf("%s\n", "Empezando BTO1...");
-	experimentoBTO1(1, 30, 1);
+	experimentoBTO1(1, 25, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empezando BTO2...");
-	experimentoBTO2(1, 30, 1);
+	experimentoBTO2(1, 25, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empezando BTO3...");
-	experimentoBTO3(1, 30, 1);
+	experimentoBTO3(1, 25, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empezando BTO4...");
-	experimentoBTO4(1, 30, 1);
+	experimentoBTO4(1, 25, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empezando BTO5...");
-	experimentoBTO5(1, 30, 1);
+	experimentoBTO5(1, 25, 1);
 	printf("%s\n", "Terminé! :)");
 
 	printf("%s\n", "Empezando BTO6 ..");
-	experimentoBTO6(1, 30, 1);
+	experimentoBTO6(1, 25, 1);
 	printf("%s\n", "Terminé! :)");
 
 	return 0;

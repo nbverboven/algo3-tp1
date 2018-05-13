@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H 
 
-#define NUMERO_MUESTRAS 35
+#define NUMERO_MUESTRAS 25
 
 using namespace std;
 
