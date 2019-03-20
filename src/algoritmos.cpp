@@ -149,7 +149,6 @@ int solucionProgDinamica(const std::vector<std::pair<int, int>> &acciones,
 					                          solucion_si_no_agrego_actual);
 
 				soluciones[i][j] = mejor_solucion;
-
 			}
 		}
 	}
